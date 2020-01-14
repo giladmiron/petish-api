@@ -5,7 +5,7 @@ var router = express.Router();
 // const Item = require('../../DB/models/Item')
 
 
-var { getAllCategoriesController, searchCategoriesController, getItemsController, setFavouriteController } = require('../controllers/controllers.js')
+var { getAllCategoriesController, searchCategoriesController,getItemsController,     setFavouriteController } = require('../controllers/controllers.js')
 
 router.post('/categories', getAllCategoriesController) // enable cors
 router.post('/categories/:term', searchCategoriesController) // enable cors

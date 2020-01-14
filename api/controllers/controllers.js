@@ -4,13 +4,7 @@ const getAllCategoriesController = function (req, res) {
     let token = req.body.token
     //verification of token with firebase
     try {
-        getAllCategoriesHandler(req.body, (err, docs) => {
-            if (err) res.send('An error occured' + err.errmsg)
-            if (docs.length === 0) res.send('No categories found')
-            else {
-                res.status(200).json(docs)
-            }
-        })
+        getAllCategoriesHandler(req.body, dbResponseHandler, res)
     } catch (e) {
         console.log(e.message)
         res.sendStatus(500)
@@ -21,13 +15,7 @@ const searchCategoriesController = function (req, res) {
     let token = req.body.token
     //verification of token with firebase
     try {
-        searchCategoriesHandler(req.params.term, (err, docs) => {
-            if (err) res.send('An error occured' + err.errmsg)
-            if (docs.length === 0) res.send('No categories found')
-            else {
-                res.status(200).json(docs)
-            }
-        })
+        searchCategoriesHandler(req.params.term, dbResponseHandler,res)
     }
     catch (e) {
         console.log(e.message)
@@ -39,13 +27,7 @@ const getItemsController = function (req, res) {
     let token = req.body.token
     //verification of token with firebase
     try {
-        getItemsHandler(req.body, (err, docs) => {
-            if (err) res.send('An error occured' + err.errmsg)
-            if (docs.length === 0) res.send('No items found')
-            else {
-                res.status(200).json(docs)
-            }
-        })
+        getItemsHandler(req.body, dbResponseHandler,res)
     }
     catch (e) {
         console.log(e.message)
@@ -73,6 +55,13 @@ const setFavouriteController = function (req, res) {
 
 }
 
+const dbResponseHandler = (err, docs, res) => {
+    if (err) res.send('An error occured' + err.errmsg)
+    if (docs.length === 0) res.send('No items found')
+    else {
+        res.status(200).json(docs)
+    }
+}
 
 module.exports = {
     getAllCategoriesController,
