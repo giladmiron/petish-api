@@ -2,7 +2,7 @@ var express = require('express');
 var router = express.Router();
 
 const { validate, getDocsValidator, tokenExistenceValidator } = require('../validators/validators')
-const authenticateUser = require('../auth/userAuth')
+const { authenticateUser } = require('../firebase/userAuth')
 
 
 var { getAllCategoriesController,
@@ -10,14 +10,10 @@ var { getAllCategoriesController,
     getItemsController,
     setFavoriteController } = require('../controllers/controllers.js')
 
-router.post('/categories', getDocsValidator(), validate, authenticateUser, getAllCategoriesController) // enable cors
-router.post('/categoriessearch/:term', tokenExistenceValidator(), validate, authenticateUser, searchCategoriesController) // enable cors
-router.post('/getitems', getDocsValidator(), validate, authenticateUser, getItemsController) // enable cors
-router.put('/setfavorite/:itemId', tokenExistenceValidator(), validate, setFavoriteController) // enable cors
-
-
-
-
+router.post('/categories', getDocsValidator(), validate, authenticateUser, getAllCategoriesController)
+router.post('/categoriessearch/:term', tokenExistenceValidator(), validate, authenticateUser, searchCategoriesController)
+router.post('/getitems', getDocsValidator(), validate, authenticateUser, getItemsController)
+router.put('/setfavorite/:itemId', tokenExistenceValidator(), validate, authenticateUser, setFavoriteController)
 
 
 // const Category = require('../../DB/models/Category')

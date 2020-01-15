@@ -1,4 +1,5 @@
 const { getAllCategoriesHandler, searchCategoriesHandler, getItemsHandler, setFavoriteHandler } = require('../handlers/handlers.js')
+const changeItemFavoriteState = require('../firebase/fireStore')
 
 const getAllCategoriesController = function (req, res) {
     try {
@@ -30,15 +31,18 @@ const getItemsController = function (req, res) {
 }
 
 const setFavoriteController = function (req, res) {
-    let token = req.body.token
-    //verification of token with firebase
-    //changin favourite status of the item at firease
     try {
         setFavoriteHandler(req.params.itemId, (err) => {
             if (err) {
-                res.send(err.message)
+                res.status(500).send(err.message)
             } else {
-                res.sendStatus(200)
+                changeItemFavoriteState(req.body.token, req.params.itemId, (error) => {
+                    if (error) {
+                        res.sendStatus(500)
+                    } else {
+                        res.sendStatus(200)
+                    }
+                })
             }
         })
     }
@@ -50,10 +54,8 @@ const setFavoriteController = function (req, res) {
 
 const dbResponseHandler = (err, docs, res) => {
     if (err) res.send(err.message)
-    if (docs.length === 0) res.send('No items found')
-    else {
-        res.status(200).json(docs)
-    }
+    else if (docs.length === 0) res.send('No items found')
+    else res.status(200).json(docs)
 }
 
 module.exports = {

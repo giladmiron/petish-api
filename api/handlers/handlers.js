@@ -41,12 +41,8 @@ const setFavoriteHandler = function (id, cb) {
     Item.findById(id, (err, doc) => {
         if (err) {
             cb(err)
-        } else {
-            doc.isfavorite = !doc.isfavorite
-            doc.save(err => {
-                if (err) cb(err)
-                cb()
-            })
+        } else if (doc) {
+            cb()
         }
     })
 }
