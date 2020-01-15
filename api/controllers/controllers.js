@@ -1,8 +1,6 @@
-const { getAllCategoriesHandler, searchCategoriesHandler, getItemsHandler, setFavouriteHandler } = require('../handlers/handlers.js')
+const { getAllCategoriesHandler, searchCategoriesHandler, getItemsHandler, setFavoriteHandler } = require('../handlers/handlers.js')
 
 const getAllCategoriesController = function (req, res) {
-    let token = req.body.token
-    //verification of token with firebase
     try {
         getAllCategoriesHandler(req.body, dbResponseHandler, res)
     } catch (e) {
@@ -12,10 +10,8 @@ const getAllCategoriesController = function (req, res) {
 }
 
 const searchCategoriesController = function (req, res) {
-    let token = req.body.token
-    //verification of token with firebase
     try {
-        searchCategoriesHandler(req.params.term, dbResponseHandler,res)
+        searchCategoriesHandler(req.params.term, dbResponseHandler, res)
     }
     catch (e) {
         console.log(e.message)
@@ -24,10 +20,8 @@ const searchCategoriesController = function (req, res) {
 }
 
 const getItemsController = function (req, res) {
-    let token = req.body.token
-    //verification of token with firebase
     try {
-        getItemsHandler(req.body, dbResponseHandler,res)
+        getItemsHandler(req.body, dbResponseHandler, res)
     }
     catch (e) {
         console.log(e.message)
@@ -35,14 +29,14 @@ const getItemsController = function (req, res) {
     }
 }
 
-const setFavouriteController = function (req, res) {
+const setFavoriteController = function (req, res) {
     let token = req.body.token
     //verification of token with firebase
     //changin favourite status of the item at firease
     try {
-        setFavouriteHandler(req.params.itemId, (err) => {
+        setFavoriteHandler(req.params.itemId, (err) => {
             if (err) {
-                res.send('an error occured' + err.errmsg)
+                res.send(err.message)
             } else {
                 res.sendStatus(200)
             }
@@ -52,11 +46,10 @@ const setFavouriteController = function (req, res) {
         console.log(e.message)
         res.sendStatus(500)
     }
-
 }
 
 const dbResponseHandler = (err, docs, res) => {
-    if (err) res.send('An error occured' + err.errmsg)
+    if (err) res.send(err.message)
     if (docs.length === 0) res.send('No items found')
     else {
         res.status(200).json(docs)
@@ -67,5 +60,6 @@ module.exports = {
     getAllCategoriesController,
     searchCategoriesController,
     getItemsController,
-    setFavouriteController
+    setFavoriteController
 }
+

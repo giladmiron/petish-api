@@ -1,16 +1,28 @@
 var express = require('express');
 var router = express.Router();
 
+const { validate, getDocsValidator, tokenExistenceValidator } = require('../validators/validators')
+const authenticateUser = require('../auth/userAuth')
+
+
+var { getAllCategoriesController,
+    searchCategoriesController,
+    getItemsController,
+    setFavoriteController } = require('../controllers/controllers.js')
+
+router.post('/categories', getDocsValidator(), validate, authenticateUser, getAllCategoriesController) // enable cors
+router.post('/categoriessearch/:term', tokenExistenceValidator(), validate, authenticateUser, searchCategoriesController) // enable cors
+router.post('/getitems', getDocsValidator(), validate, authenticateUser, getItemsController) // enable cors
+router.put('/setfavorite/:itemId', tokenExistenceValidator(), validate, setFavoriteController) // enable cors
+
+
+
+
+
+
 // const Category = require('../../DB/models/Category')
 // const Item = require('../../DB/models/Item')
 
-
-var { getAllCategoriesController, searchCategoriesController,getItemsController,     setFavouriteController } = require('../controllers/controllers.js')
-
-router.post('/categories', getAllCategoriesController) // enable cors
-router.post('/categories/:term', searchCategoriesController) // enable cors
-router.post('/getitems', getItemsController) // enable cors
-router.put('/setfavourite/:itemId', setFavouriteController) // enable cors
 
 // router.post('/createcategory', (req, res) => {
 //     console.log(req.body)

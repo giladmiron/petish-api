@@ -5,15 +5,6 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var cors = require('cors')
 
-//firebase configuration
-require('dotenv').config()
-
-var admin = require('firebase-admin');
-admin.initializeApp({
-  credential: admin.credential.applicationDefault(),
-  databaseURL: 'https://petish-81e60.firebaseio.com'
-});
-
 var applicationRoutes = require('./api/routes/routes');
 
 var app = express();
@@ -53,5 +44,8 @@ app.use(function (err, req, res, next) {
   res.render('error');
 });
 
+app.listen(3000, () => {
+  console.log('app is running on port 3000')
+})
 
 module.exports = app;
