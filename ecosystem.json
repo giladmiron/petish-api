@@ -1,26 +1,26 @@
-
-{    "apps": [{
+{
+  "apps": [
+    {
       "name": "petish-api",
       "script": "./app.js",
       "env": {
-       //   "NODE_ENV": "development"
+        //   "NODE_ENV": "development"
       }
     }
-],
-    "deploy": {
-      "development": {
-        "key": "c:/moveo-skill/Skill-server-key.pem",
-        "user": "ubuntu",
-        "host": "ec2-3-8-160-68.eu-west-2.compute.amazonaws.com",
-        "ref": "origin/master",
-        "repo": "git@github.com:giladmiron/petish-api.git",
-        "path": "/home/ubuntu/server",
-        "post-deploy": "mkdir -p logs && npm install && pm2 startOrRestart ecosystem.json --env development && pm2 save",
-        "ssh_options": "StrictHostKeyChecking=no",
-        "env": {
-          "NODE_ENV": "development"
+  ],
+  "deploy": {
+    "development": {
+      "key": "/server/Skill-server-key.pem",
+      "user": "ubuntu",
+      "host": "ec2-3-8-160-68.eu-west-2.compute.amazonaws.com",
+      "ref": "origin/master",
+      "repo": "git@github.com:giladmiron/petish-api.git",
+      "path": "/home/ubuntu/server",
+      "post-deploy": "mkdir -p logs && npm install && pm2 startOrRestart ecosystem.json --env development && pm2 save",
+      "ssh_options": "StrictHostKeyChecking=no",
+      "env": {
+        "NODE_ENV": "development"
       }
-      }
-      
     }
+  }
 }
