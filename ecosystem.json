@@ -13,7 +13,7 @@
         "user": "ubuntu",
         "host": "ec2-3-8-160-68.eu-west-2.compute.amazonaws.com",
         "ref": "origin/master",
-        "repo": "https://github.com/giladmiron/petish-api.git",
+        "repo": "git@github.com:giladmiron/petish-api.git",
         "path": "/home/ubuntu/server",
         "post-deploy": "npm install && pm2 startOrRestart ecosystem.config.js",
         "ssh_options": "StrictHostKeyChecking=no"
