@@ -11,7 +11,7 @@
       "development": {
         "key": "c:/moveo-skill/Skill-server-key.pem",
         "user": "ubuntu",
-        "host": "petish-api",
+        "host": "ec2-3-8-160-68.eu-west-2.compute.amazonaws.com",
         "ref": "origin/master",
         "repo": "https://github.com/giladmiron/petish-api.git",
         "path": "/home/ubuntu/server",
