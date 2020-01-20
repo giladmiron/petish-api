@@ -4,7 +4,7 @@
       "name": "petish-api",
       "script": "./app.js",
       "env": {
-        //   "NODE_ENV": "development"
+      //   "NODE_ENV": "development"
       }
     }
   ],
@@ -16,7 +16,7 @@
       "ref": "origin/master",
       "repo": "git@github.com:giladmiron/petish-api.git",
       "path": "/home/ubuntu/server",
-      "post-deploy": "mkdir -p logs && npm install && pm2 startOrRestart ecosystem.json --env development && pm2 save",
+      "post-deploy": "cp ~/.env . && npm install && mkdir -p logs && pm2 startOrRestart ecosystem.json --env development && pm2 save",
       "ssh_options": "StrictHostKeyChecking=no",
       "env": {
         "NODE_ENV": "development"
