@@ -25,7 +25,7 @@ const getAllCategoriesController = function(req, res) {
 
 const searchCategoriesController = function(req, res) {
   try {
-    searchCategoriesHandler(req.params.term, (err, docs) => {
+    searchCategoriesHandler(req.params.term, req.body.type, (err, docs) => {
       dbResponseHandler(err, docs, res);
     });
   } catch (e) {
@@ -75,8 +75,8 @@ const setFavoriteController = function(req, res) {
 };
 
 const dbResponseHandler = (err, docs, res) => {
-  if (err) res.send(err.message);
-  else if (docs.length === 0) res.send("No items found");
+  if (err) res.status(500).send(err.message);
+  else if (docs.length === 0) res.status(204).send("No items found");
   else res.status(200).json(docs);
 };
 

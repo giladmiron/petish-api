@@ -9,7 +9,7 @@ const getDocsValidator = () => {
       .exists()
       .withMessage("you must send type field with the request")
       .bail()
-      .custom(value => value == 1 || value == 2)
+      .custom(value => value === 1 || value === 2)
       .withMessage("type must be with value of 1 or 2"),
     body("page")
       .exists()
@@ -40,6 +40,20 @@ const tokenExistenceValidator = () => {
   ];
 };
 
+const tokenAndTypeValidator = () => {
+  return [
+    body("token")
+      .exists()
+      .withMessage("you must send token field with the request"),
+    body("type")
+      .exists()
+      .withMessage("you must send type field with the request")
+      .bail()
+      .custom(value => value === 1 || value === 2)
+      .withMessage("type must be with value of 1 or 2")
+  ];
+};
+
 const validate = (req, res, next) => {
   const errors = validationResult(req);
   if (errors.isEmpty()) {
@@ -48,7 +62,7 @@ const validate = (req, res, next) => {
   const extractedErrors = [];
   errors.array().map(err => extractedErrors.push({ [err.param]: err.msg }));
 
-  return res.status(422).json({
+  return res.status(400).json({
     errors: extractedErrors
   });
 };
@@ -56,5 +70,6 @@ const validate = (req, res, next) => {
 module.exports = {
   validate,
   getDocsValidator,
-  tokenExistenceValidator
+  tokenExistenceValidator,
+  tokenAndTypeValidator
 };

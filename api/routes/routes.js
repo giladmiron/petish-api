@@ -4,7 +4,8 @@ var router = express.Router();
 const {
   validate,
   getDocsValidator,
-  tokenExistenceValidator
+  tokenExistenceValidator,
+  tokenAndTypeValidator
 } = require("../validators/validators");
 const { authenticateUser } = require("../firebase/userAuth");
 
@@ -25,7 +26,7 @@ router.post(
 
 router.post(
   "/categoriessearch/:term",
-  tokenExistenceValidator(),
+  tokenAndTypeValidator(),
   validate,
   authenticateUser,
   searchCategoriesController

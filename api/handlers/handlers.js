@@ -16,10 +16,11 @@ const getAllCategoriesHandler = function(params, cb) {
   );
 };
 
-const searchCategoriesHandler = function(term, cb) {
+const searchCategoriesHandler = function(term, type, cb) {
   Category.find(
     {
-      name: { $regex: term, $options: "i" }
+      name: { $regex: term, $options: "i" },
+      type: type
     },
     { type: false, __v: false },
     (err, docs) => {

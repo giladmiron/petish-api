@@ -17,7 +17,7 @@ const authenticateUser = function(req, res, next) {
     })
     .catch(function(error) {
       console.log("Error fetching user data:", error);
-      res.status(403).send("user is not authenticated");
+      res.status(401).send("user is not authenticated");
     });
 };
 
