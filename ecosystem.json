@@ -15,7 +15,7 @@
       "host": "ec2-3-8-160-68.eu-west-2.compute.amazonaws.com",
       "ref": "origin/master",
       "repo": "git@github.com:giladmiron/petish-api.git",
-      "path": "/home/ubuntu/petish-api-server",
+      "path": "/home/ubuntu/server",
       "post-deploy": "cp ~/.env . && npm install && mkdir -p logs && pm2 startOrRestart ecosystem.json --env development && pm2 save",
       "ssh_options": "StrictHostKeyChecking=no",
       "env": {
